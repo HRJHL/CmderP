@@ -3,38 +3,36 @@
 {% load static %}
 <html lang="ko">
 <head>
- <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>{{ post.title }} - Blog</title>
-
     <!-- Bootstrap core CSS -->
-<link rel="stylesheet" type="text/css" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen" >
+    <link href="{% static 'blog/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'blog/css/blog-post.css' %}" meadia="screen">
 
-<!-- Custom styles for this template -->
-<link rel="stylesheet" href="{% static 'blog/css/blog-post.css' %}" media="screen">
+    <script src="https://kit.fontawesome.com/*********.js" crossorigin="anonymous"></script>
 </head>
 
     <body>
-     <div class="container">
-
+ <div class="container">
     <div class="row">
-
         <!-- Post Content Column -->
         <div class="col-lg-8" id="main-area">
+            <!-- Title -->
+            <h1 class="mt-4">{{ post.title }}</h1>
+            {% if post.hook_text %}
+                <h5 class="text-muted">{{ post.hook_text }}</h5>
+            {% endif %}
 
-        <!-- Title -->
-        <h1 class="mt-4">{{ post.title }}</h1>
-
-        <!-- Author -->
-        <p class="lead">
-           by
-           <a href="#">작성자명 쓸 위치(개발예정)</a>
-        </p>
-
-        <hr>
+            <!-- Author -->
+            <p class="lead">
+                by
+              <a href="#">작성자명 쓸 위치(개발예정)</a>
+            </p>
+            <hr>
 
         <!-- Date/Time -->
         <p>Posted on {{ post.created_at }}</p>
@@ -48,6 +46,25 @@
 
         <!-- Post Content -->
         <p>{{ post.content }}</p>
+            <p>{{ post.content }}</p>
+
+{% if post.file_upload %}
+    <a href="{{ post.file_upload.url }}" type="button" class="btn btn-outline-dark" role="button" download>
+       Download:
+
+       {% if post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
+           <i class="far fa-file-excel"></i>
+       {% elif post.get_file_ext == 'csv' %}
+           <i class="fas fa-file-csv"></i>
+       {% elif post.get_file_ext == 'docx' %}
+           <i class="far fa-file-word"></i>
+       {% else %}
+           <i class="far fa-file-alt"></i>
+       {% endif %}
+
+       {{ post.get_file_name }}
+     </a>
+{% endif %}
         <hr>
     <script src="runtime.78fe65772c8aff3e.js" type="module" crossorigin="anonymous"></script><script src="polyfills.f3824fe6dc0460ae.js" type="module" crossorigin="anonymous"></script><script src="scripts.cd816875f3dc91fb.js" defer crossorigin="anonymous"></script><script src="main.6700dedd9b90aef0.js" type="module" crossorigin="anonymous"></script>
 
