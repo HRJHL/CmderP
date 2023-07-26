@@ -1,18 +1,55 @@
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>{{post.title}} - Blog</title>
-</head>
-<body>
-<nav>
-    <a href = "/blog/">Blog</a>
-</nav>
+ <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<h1>{{post.title}}</h3>
-<h4>{{post.created_at}}</h4>
-<p>{{post.content}}</p>
-<hr/>
-    <h3>댓글</h3>
-</body>
-</html>
+    <title>{{ post.title }} - Blog</title>
+
+    <!-- Bootstrap core CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen" >
+
+<!-- Custom styles for this template -->
+<link rel="stylesheet" href="{% static 'blog/css/blog-post.css' %}" media="screen">
+</head>
+
+    <body>
+     <div class="container">
+
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8" id="main-area">
+
+        <!-- Title -->
+        <h1 class="mt-4">{{ post.title }}</h1>
+
+        <!-- Author -->
+        <p class="lead">
+           by
+           <a href="#">작성자명 쓸 위치(개발예정)</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Posted on {{ post.created_at }}</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+
+        <hr>
+
+        <!-- Post Content -->
+        <p>{{ post.content }}</p>
+        <hr>
+    <script src="runtime.78fe65772c8aff3e.js" type="module" crossorigin="anonymous"></script><script src="polyfills.f3824fe6dc0460ae.js" type="module" crossorigin="anonymous"></script><script src="scripts.cd816875f3dc91fb.js" defer crossorigin="anonymous"></script><script src="main.6700dedd9b90aef0.js" type="module" crossorigin="anonymous"></script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854" integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg==" data-cf-beacon='{"rayId":"7eca35669ace2627","token":"6e2c2575ac8f44ed824cef7899ba8463","version":"2023.4.0","si":100}' crossorigin="anonymous"></script>
+</body></html>
