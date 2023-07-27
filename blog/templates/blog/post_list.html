@@ -1,134 +1,45 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="ko">
-    <head>
-        <title>Blog</title>
-            <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
+post_list.html
+{% extends 'blog/base.html' %}
 
-    <script src="https://kit.fontawesome.com/***********.js" crossorigin="anonymous"></script>
-        <style>
-          nav {background-color: darkgree; font-size: 150%; text-align: center}
-          nav a {color:gold}
-        </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-              <a class="navbar-brand" href="index.html">CSS</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
+{% block main_area %}
+    <h1>Blog</h1>
+    {% if post_list.exists %}
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="blog_list.html">Blog</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="about_me.html" role="button" data-toggle="dropdown" aria-expanded="false">
-                      about_me
-                    </a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="index.html">홈</a>
-                      <a class="dropdown-item" href="blog_list.html">블로그</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="about_me.html">어바웃</a>
-                    </div>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                  </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-              </div>
-              </div>
-            </nav>
-
-        <h1>Blog</h1>
-{% if post_list.exists %}  # post_list에 포스트가 있다면 실행
-
-  {% for p in post_list %}
-      <!-- Blog Post -->
-      <div class="card mb-4">
-          {% if p.head_image %}
-              <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p.title }}">
-           {% else %}
-              <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/600/200" alt="{{ p.title }}">
-            {% endif %}
-
-            <div class="card-body">
-                 <h2 class="card-title">{{ p.title }}</h2>
-                 {% if p.hook_text %}
-                    <h5 class="text-muted">{{ p.hook_text }}</h5>
-                 {% endif %}
+        {% for p in post_list %}
+            <!-- Blog Post -->
+            <div class="card mb-4">
+                {% if p.head_image %}
+                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p }} head image">
+                {% else %}
+                    <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random_image">
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{ p.title}}</h2>
+                    {% if p.hook_text %}
+                        <h5 class="text-muted">{{ p.hook_text }}</h5>
+                    {% endif %}
                     <p class="card-text">{{ p.content | truncatewords:45 }}</p>
                     <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
-              </div>
-              <div class="card-footer text-muted">
-                   Posted on {{ p.created_at }} by
-                   <a href="#">작성자명 쓸 위치(개발예정)</a>
-              </div>
-         </div>
-     {% endfor %}
-{% else %}
-     <h1>아직 게시물이 없습니다</h1>
-{% endif %}
-
-        <div class="card my-4">
-            <h5 class="card-header">Search</h5>
-            <div class="card-body">
-                <div class="input-group">
-                    <input type="text" class="form0control" placeholder="Search for...">
-                    <span class ="input-group-btn">
-                        <button class="btn-secondary" type="button">Go!</button>
-                    </span>
+                </div>
+                <div class="card-footer text-muted">
+                    Posted on {{ p.created_at}} by
+                    <a href="#">작성자명 쓸 위치(개발예정)</a>
                 </div>
             </div>
-        </div>
+        {% endfor %}
 
-        <div class="card my-4">
-            <h5 class="card-header">Categories</h5>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <ul class="list-unsyled mb-0">
-                            <li>
-                                <a href="#">Web Design</a>
-                            </li>
-                            <li>
-                                <a href="#">Html</a>
-                            </li>
-                            <li>
-                                <a href="#">Freebies</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-6">
-                        <ul class="list-unsyled mb-0">
-                            <li>
-                                <a href="#">JavaScript</a>
-                            </li>
-                            <li>
-                                <a href="#">Css</a>
-                            </li>
-                            <li>
-                                <a href="#">Tutorials</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    {% else %}
+        <h3>아직 게시물이 없습니다.</h3>
+    {% endif %}
 
 
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-    </body>
-</html>
+    <!-- Pagination -->
+    <ul class="pagination justify-content-center mb-4">
+        <li class="page-item">
+            <a class="page-link" href="#">&larr; Older</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">Newer &rarr;</a>
+        </li>
+    </ul>
+{% endblock %}
